@@ -4,7 +4,7 @@ interface KartProps {
     aciklama?: string;
 }
 
-function Kart({baslik,fiyat,aciklama}: KartProps) {
+function Kart({baslik,fiyat,aciklama = "acıklama yoktur"}: KartProps) {
     return(
         <div>
             <h2>{baslik}</h2>
