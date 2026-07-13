@@ -1,5 +1,6 @@
 import Layout from "./components/Layout";
 import Alert from "./components/Alert";
+import SectionCard from "./components/SectionCard";
 
 function App(){
   return(
@@ -7,6 +8,10 @@ function App(){
     <Alert variant="info" onDismiss={()=>{alert("Info kapatıldı")}}>
       <strong>Bilgi:</strong> Kayıt yapıldı.
       </Alert>
+
+   <SectionCard title="Duyuru">
+        <p>Burası duyuru içeriğidir.</p>
+      </SectionCard>
 
     <Alert variant="warning" onDismiss={()=>{alert("Warning kapatıldı")}}>
       <strong>Uyarı:</strong> Kayıt yaparken bir hata oluştu.
