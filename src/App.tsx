@@ -1,12 +1,14 @@
-import Kart from "./components/Selamla";
+import Button from "./components/Button";
 
 function App() {
+  function handleClick(){
+    console.log("Butona tıklandı");
+  }
+
+
   return(
     <>
-      <Kart baslik = "Kalem" fiyat ={5} aciklama = "Bu bir kalemdir." />
-      <Kart baslik = "Klavye" fiyat ={500} aciklama = "Bu bir klavyedir." />
-      <Kart baslik = "Monitör" fiyat ={500} aciklama = "Bu bir monitördür." />
-      <Kart baslik = "Bilgisayar" fiyat ={500}  />
+    <Button label="Tıkla" onClick={handleClick}/>
     </>
   )
 }
