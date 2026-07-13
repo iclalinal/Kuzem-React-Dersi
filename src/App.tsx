@@ -1,4 +1,5 @@
 import Button from "./components/Button";
+import Item from "./components/Item";
 
 function App() {
   function handleClick(){
@@ -8,7 +9,8 @@ function App() {
 
   return(
     <>
-    <Button label="Tıkla" onClick={handleClick}/>
+    <Item id={1} name="Kalem" onDelete={(id) => console.log("Silindi:", id)} />
+    <Button label="Tıkla" onClick={handleClick} />
     </>
   )
 }
