@@ -1,21 +1,25 @@
-interface User{
-  name: string;
-}
+import Layout from "./components/Layout";
+import Alert from "./components/Alert";
 
-function App() {
-  const user: User = {name:"İclal İnal"};
-  return <Page user={user} />
-}
-
-function Page({user}:{user:User}){
-  return <Headers user={user} />
-}
-
-function Headers({user}:{user:User}){
+function App(){
   return(
-    <div>
-      <h1>Merhaba {user.name}</h1>
-    </div>
-      )}
+    <>
+    <Alert variant="info" onDismiss={()=>{alert("Info kapatıldı")}}>
+      <strong>Bilgi:</strong> Kayıt yapıldı.
+      </Alert>
 
+    <Alert variant="warning" onDismiss={()=>{alert("Warning kapatıldı")}}>
+      <strong>Uyarı:</strong> Kayıt yaparken bir hata oluştu.
+      </Alert>
+
+    <Alert variant="error" onDismiss={()=>{alert("Error kapatıldı")}}>
+      <strong>Hata:</strong> Kayıt yapılamadı.
+      </Alert>
+
+    <Layout header={<h1>Başlık</h1>} >
+      <p>Buraya metin gelecek</p>
+    </Layout>
+    </>
+  )
+}
 export default App;
