@@ -1,15 +1,13 @@
-import Counter from './components/Counter';
-import Toggle from './components/Toggle';
-import NameInput from './components/NameInput';
-import Profil from './components/Profil';
+import MeyveListesi from "./components/MeyveListesi";
+import SehirSec from "./components/SehirSec";
+import IsimListesi from "./components/IsimListesi";
 
 function App(){
   return(
     <>
-    <Profil />
-    <Counter />
-    <Toggle />
-    <NameInput />
+    <IsimListesi />
+    <SehirSec />
+    <MeyveListesi />
     </>
   )
 }
