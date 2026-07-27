@@ -1,9 +1,11 @@
-import ToDoApp from './components/ToDoApp';
+import Counter from './components/Counter';
+import FareTakibi from './components/FareTakibi';
 
 function App(){
   return(
     <>
-      <ToDoApp />
+      <Counter />
+      <FareTakibi />
     </>
   )
 }

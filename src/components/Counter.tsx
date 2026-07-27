@@ -1,7 +1,12 @@
 import {useState} from 'react';
+import {useEffect} from 'react';
 
 function Counter(){
     const [count, setCount] = useState(0);
+
+    useEffect(()=>{
+        document.title = `sayac: ${count}`;
+    }, [count]);
 
     return(
         <div>
