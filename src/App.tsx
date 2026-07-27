@@ -1,11 +1,11 @@
-import Counter from './components/Counter';
-import FareTakibi from './components/FareTakibi';
+import PencereBoyutu from './components/PencereBoyutu';
+import Kronometre from './components/Kronometre';
 
 function App(){
   return(
     <>
-      <Counter />
-      <FareTakibi />
+      <PencereBoyutu />
+      <Kronometre/>
     </>
   )
 }
