@@ -1,9 +1,9 @@
-import KategoriListele from './components/KategoriListele';
+import ToDoApp from './components/ToDoApp';
 
 function App(){
   return(
     <>
-      <KategoriListele />
+      <ToDoApp />
     </>
   )
 }
