@@ -1,11 +1,9 @@
-import PencereBoyutu from './components/PencereBoyutu';
-import Kronometre from './components/Kronometre';
+import KategoriListele from './components/KategoriListele';
 
 function App(){
   return(
     <>
-      <PencereBoyutu />
-      <Kronometre/>
+      <KategoriListele />
     </>
   )
 }
