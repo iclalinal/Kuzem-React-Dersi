@@ -1,9 +1,9 @@
-import KullaniciRehberi from './components/KullaniciRehberi';
+import GonderiPanosu from './components/GonderiPanosu';
 
 function App(){
   return(
     <>
-      <KullaniciRehberi />
+      <GonderiPanosu />
     </>
   )
 }
