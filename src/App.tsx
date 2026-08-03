@@ -1,9 +1,9 @@
-import ToDoApp from './components/ToDoApp';
+import KullaniciRehberi from './components/KullaniciRehberi';
 
 function App(){
   return(
     <>
-      <ToDoApp />
+      <KullaniciRehberi />
     </>
   )
 }
