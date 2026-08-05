@@ -1,19 +1,17 @@
-import type {ReactNode} from 'react';
+import {Outlet, NavLink} from "react-router-dom";
 
-interface LayoutProps {
-    header : ReactNode;
-    footer ?: ReactNode;
-    children : ReactNode;
-}
-
-function Layout({header,footer,children}:LayoutProps){
+function Layout() {
     return(
-        <div>
-            <header>{header}</header>
-            <main>{children}</main>
-            <footer>{footer}</footer>
-        </div>
-    );
-}
-
-export default Layout;
+        <>
+            <nav>
+                <NavLink to="/"
+                className={({isActive}) => isActive ? "aktif-link" : ""}>Ana Sayfa</NavLink>
+                <NavLink to="/hakkimizda"
+                className={({isActive}) => isActive ? "aktif-link" : ""}>Hakkımızda</NavLink>
+                <NavLink to="/kullanici"
+                className={({isActive}) => isActive ? "aktif-link" : ""}>Kullanıcılar</NavLink>
+            </nav>
+            <Outlet />
+        </>
+    )
+} export default Layout;
