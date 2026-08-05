@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 type Kullanici = {id: number, name: string, email: string};
 
@@ -35,7 +36,9 @@ function KullaniciRehberi() {
             <ul>
                 {kullanicilar.map(kullanici => (
                     <li key={kullanici.id}>
-                        <strong>{kullanici.name}</strong> - {kullanici.email}
+                        <Link to={`/kullanici/${kullanici.id}`}>
+                            <strong>{kullanici.name}</strong> - {kullanici.email}
+                        </Link>
                     </li>
                 ))}
             </ul>

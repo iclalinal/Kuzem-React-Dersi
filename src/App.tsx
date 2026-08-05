@@ -1,13 +1,7 @@
 import { Routes, Route, Link } from 'react-router-dom';
+import KullaniciDetay from './components/KullaniciDetay.tsx';
+import KullaniciRehberi from './components/KullaniciRehberi.tsx';
 
-function AnaSayfa() {
-  return(
-    <div>
-      <h1>Ana Sayfa</h1>
-      <p>Hoş geldiniz!</p>
-    </div>
-  )
-}
 
 function Hakkimizda() {
   return(
@@ -35,8 +29,9 @@ function App(){
         <Link to="/hakkimizda">Hakkımızda</Link>
       </nav>
       <Routes>
-        <Route path="/AnaSayfa" element={<AnaSayfa />} />
+        <Route path="/" element={<KullaniciRehberi />} />
         <Route path="/hakkimizda" element={<Hakkimizda />} />
+        <Route path="/kullanici/:id" element={<KullaniciDetay />} />
         <Route path="*" element={<BulunamaddiSayfa />} />
       </Routes>
     </>
