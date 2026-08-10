@@ -1,13 +1,13 @@
-import type {ReactNode} from "react";
-
 interface CardProps {
-    children: ReactNode;
+    baslik?: string;
+    aciklama?: string;
 }
 
-function Card({children}: CardProps){
+function Card({baslik, aciklama}: CardProps){
     return(
-        <div style={{border:"1px solid black",padding:"10px",backgroundColor:"lightgray",margin:"10px"}}>
-            {children}
+        <div className = "p-6 rounded-lg shadow-md bg-white border border-gray-200 pt-4">
+            <h2 className="text-xl font-bold mb-2">{baslik}</h2>
+            <p className="text-gray-700">{aciklama}</p>
         </div>
     )
 }

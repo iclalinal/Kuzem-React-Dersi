@@ -1,33 +1,11 @@
-import { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import GirisForm from './components/GirisForm';
-import Panel from './components/Panel';
-import ProtectedRoute from './components/ProtectedRoute';
-
-function BulunamaddiSayfa() {
-  return(
-    <div>
-      <h1>404</h1>
-      <p>Sayfa bulunamadı.</p>
-    </div>
-  )
-}
+import Card from "./components/Card";
 
 function App(){
-  const [girisYapildi, setGirisYapildi] = useState<boolean>(false);
   return(
     <>
-      <Routes>
-        <Route path="/" element={<GirisForm setGirisYapildi={setGirisYapildi} />} />
-        <Route path="/panel" element={
-          <ProtectedRoute 
-            girisYapildi={girisYapildi}>
-          <Panel />
-          </ProtectedRoute>} />
-        <Route path="*" element={<BulunamaddiSayfa />
-      } 
-      />
-      </Routes>
+      <Card baslik="Başlık 1" aciklama="Bu bir açıklamadır." />
+      <Card baslik="Başlık 2" aciklama="Bu başka bir açıklamadır." />
+      <Card baslik="Başlık 3" aciklama="Bu da üçüncü bir açıklamadır." />
     </>
   )
 }
