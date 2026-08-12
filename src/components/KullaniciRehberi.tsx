@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-type Kullanici = {id: number, name: string, email: string};
+type Kullanici = { id: number; name: string; email: string };
 
 function KullaniciRehberi() {
     const [kullanicilar, setKullanicilar] = useState<Kullanici[]>([]);
     const [yukleniyor, setYukleniyor] = useState<boolean>(true);
     const [hata, setHata] = useState<string>("");
+    const [secili, setSecili] = useState<number | null>(null);
 
     useEffect(() => {
         const getir = async () => {
@@ -16,32 +17,36 @@ function KullaniciRehberi() {
                     throw new Error("Http hatası: " + res.status);
                 }
                 setKullanicilar(await res.json());
-            }catch {setHata("Kullanıcılar yüklenemedi!")}
-            finally {setYukleniyor(false);}
-        }
-            getir();
-        },[]);
+            } catch {
+                setHata("Kullanıcılar yüklenemedi!");
+            } finally {
+                setYukleniyor(false);
+            }
+        };
+        getir();
+    }, []);
 
-    if(yukleniyor) {
+    if (yukleniyor) {
         return <p>Hazırlanıyor...</p>;
     }
 
-    if(hata) {
+    if (hata) {
         return <p>{hata}</p>;
     }
 
     return (
-        <div>
-            <h2>Kullanıcılar</h2>
-            <ul>
-                {kullanicilar.map(kullanici => (
-                    <li key={kullanici.id}>
-                        <Link to={`/kullanici/${kullanici.id}`}>
-                            <strong>{kullanici.name}</strong> - {kullanici.email}
-                        </Link>
-                    </li>
-                ))}
-            </ul>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {kullanicilar.map((kullanici) => (
+                <div
+                    key={kullanici.id}
+                    onClick={() => setSecili(kullanici.id)}
+                    className={`p-4 rounded-lg shadow-md bg-white border border-gray-200 hover:bg-gray-100 ${
+                        secili === kullanici.id ? "ring-2 ring-blue-500" : ""}`}>
+                    <Link to={`/kullanici/${kullanici.id}`}>
+                        <strong>{kullanici.name}</strong> - {kullanici.email}
+                    </Link>
+                </div>
+            ))}
         </div>
     );
 }
