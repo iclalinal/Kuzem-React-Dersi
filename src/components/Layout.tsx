@@ -6,11 +6,17 @@ function Layout() {
             <nav className = "flex items-center justify-between px-6 py-4 bg-white shadow-md">
                 <span className = "text-lg font-bold">KUZEM</span>
                 <NavLink to="/"
-                className="hover:text-blue-500">Ana Sayfa</NavLink>
+                className={({ isActive }) => `hover:text-primary ${isActive ? 'text-secondary font-bold' : 'text-gray-700'}`}>
+                    Ana Sayfa
+                </NavLink>
                 <NavLink to="/hakkimizda"
-                className="hover:text-blue-500">Hakkımızda</NavLink>
+                className={({ isActive }) => `hover:text-primary ${isActive ? 'text-secondary font-bold' : 'text-gray-700'}`}>
+                    Hakkımızda
+                </NavLink>
                 <NavLink to="/kullanici"
-                className="hover:text-blue-500">Kullanıcılar</NavLink>
+                className={({ isActive }) => `hover:text-primary ${isActive ? 'text-secondary font-bold' : 'text-gray-700'}`}>
+                    Kullanıcılar
+                </NavLink>
             </nav>
             <Outlet />
         </>

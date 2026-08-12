@@ -1,13 +1,9 @@
-import Button from "./components/Button";
-import KullaniciRehberi from "./components/KullaniciRehberi";
+import Layout from "./components/Layout";
 
 
 function App(){
   return(
-    <>
-      <KullaniciRehberi/>
-      <Button/>
-    </>
+    <Layout />
   )
 }
 export default App;
