@@ -16,15 +16,15 @@ function KullaniciDetay() {
     }, [id]);
 
     if (!kullanici) {
-        return <p>Kullanıcı yükleniyor...</p>;
+        return <p className="text-gray-500 dark:text-white">Kullanıcı yükleniyor...</p>;
     }
 
     return(
-    <> 
+    <div className="p-4 rounded-lg shadow-md bg-white border border-gray-200 dark:text-white dark:bg-gray-800 dark:border-gray-600"> 
         <h2>Kullanıcı Detayları</h2>
-        <p><strong>Ad:</strong> {kullanici.name}</p>
-        <p><strong>Email:</strong> {kullanici.email}</p>
-    </>
+        <p className="mb-2 font-bold"><strong>Ad:</strong> {kullanici.name}</p>
+        <p className="mb-2 font-bold dark:text-gray-300" ><strong>Email:</strong> {kullanici.email}</p>
+    </div>
 )
 }
 export default KullaniciDetay;

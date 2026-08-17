@@ -40,7 +40,7 @@ function KullaniciRehberi() {
                 <div
                     key={kullanici.id}
                     onClick={() => setSecili(kullanici.id)}
-                    className={`p-4 rounded-lg shadow-md bg-white border border-gray-200 hover:bg-gray-100 ${
+                    className={`p-4 rounded-lg shadow-md bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-600 dark:text-white hover:bg-gray-100 ${
                         secili === kullanici.id ? "ring-2 ring-blue-500" : ""}`}>
                     <Link to={`/kullanici/${kullanici.id}`}>
                         <strong>{kullanici.name}</strong> - {kullanici.email}
