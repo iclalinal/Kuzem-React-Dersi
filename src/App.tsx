@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import KullaniciRehberi from "./components/KullaniciRehberi";
 import KullaniciDetay from "./components/KullaniciDetay";
+import ToDoApp from "./components/ToDoApp";
 
 function AnaSayfa() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="hakkimizda" element={<Hakkimizda />} />
         <Route path="kullanici" element={<KullaniciRehberi />} />
         <Route path="kullanici/:id" element={<KullaniciDetay />} />
+        <Route path ="todo" element={<ToDoApp/>}/>
       </Route>
     </Routes>
   );
