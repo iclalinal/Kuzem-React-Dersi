@@ -1,12 +1,10 @@
-import {useState, useEffect} from "react";
+import {useState} from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 type Gorev = {id: number, baslik: string};
 
 function ToDoApp(){
-    const [gorevler, setGorevler] = useState<Gorev[]>(()=>{
-        const kayitli = localStorage.getItem("gorevler");
-        return kayitli ? JSON.parse(kayitli) : [{id: 1, baslik: "Alışverişe git"}, {id: 2, baslik: "Ödevleri yap"}];
-    });
+    const [gorevler, setGorevler] = useLocalStorage<Gorev[]>("gorevler", [{id: 1, baslik: "Alışverişe git"}, {id: 2, baslik: "Ödevleri yap"}]);
     const [baslik, setBaslik] = useState("");
     const [arama, setArama] = useState("");
     const [sirala, setSirala] = useState(false);
@@ -25,10 +23,6 @@ function ToDoApp(){
     const filtrelenmis = gorevler.filter( g =>
         g.baslik.toLowerCase().includes(arama.toLowerCase())
     )
-
-    useEffect(()=>{
-        localStorage.setItem("gorevler", JSON.stringify(gorevler));
-    }, [gorevler]);
 
     const gosterilecek =sirala
     ? [...filtrelenmis].sort((a,b) =>

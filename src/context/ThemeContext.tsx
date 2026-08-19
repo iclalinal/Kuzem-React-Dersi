@@ -1,5 +1,6 @@
-import {createContext, useState, useEffect, useContext} from "react";
+import {createContext, useEffect, useContext} from "react";
 import type {ReactNode} from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 type Theme = "light" | "dark";
 
@@ -13,15 +14,10 @@ export const ThemeContext =
 
 
 export function ThemeProvider({children}: {children: ReactNode}){
-    const [theme, setTheme] = useState(()=>{
-        const kayitli = localStorage.getItem("theme")
-        return kayitli === "dark" ? "dark" : "light"
-    }
-    )
+    const [theme, setTheme] = useLocalStorage<Theme>("theme", "light");
 
     useEffect(()=>{
         document.documentElement.classList.toggle("dark", theme === "dark");
-        localStorage.setItem("theme",theme)
     }, [theme]);
 
     function toggleTheme(){
