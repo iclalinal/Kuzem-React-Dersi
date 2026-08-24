@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Spinner from "./Spinner";
 
 type Kullanici = { id: number; name: string; email: string };
 
@@ -40,7 +41,7 @@ function KullaniciRehberi() {
     }
 
     if (yukleniyor) {
-        return <p>Hazırlanıyor...</p>;
+        return <Spinner />;
     }
 
     if (hata) {
