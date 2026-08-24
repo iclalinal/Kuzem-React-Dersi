@@ -1,44 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import useFetch from "../hooks/useFetch";
 import { Link } from "react-router-dom";
 import Spinner from "./Spinner";
 
 type Kullanici = { id: number; name: string; email: string };
 
 function KullaniciRehberi() {
-    const [kullanicilar, setKullanicilar] = useState<Kullanici[]>([]);
-    const [yukleniyor, setYukleniyor] = useState<boolean>(true);
-    const [hata, setHata] = useState<string>("");
+    const { veri : kullanicilar, yukleniyor, hata, yenidenDene } = useFetch<Kullanici[]>("https://jsonplaceholder.typicode.com/users");
     const [secili, setSecili] = useState<number | null>(null);
-    const [denemeNo, setDenemeNo] = useState<number>(0);
-
-    useEffect(() => {
-        const getir = async () => {
-            try {
-                const res = await fetch("https://jsonplaceholder.typicode.com/users");
-                if (!res.ok) {
-                    throw new Error("Http hatası: " + res.status);
-                }
-                setKullanicilar(await res.json());
-            } catch (err) {
-                if (err instanceof TypeError) {
-                    setHata("İnternet bağlantısı yok!");
-                } else if (err instanceof Error) {
-                    setHata(err.message);
-                } else {
-                    setHata("Bilinmeyen bir hata oluştu!"); 
-                }
-            } finally {
-                setYukleniyor(false);
-            }
-        };
-        getir();
-    }, [denemeNo]);
-
-    function yenidenDene() {
-        setHata("");
-        setYukleniyor(true);
-        setDenemeNo((p) => p + 1);
-    }
 
     if (yukleniyor) {
         return <Spinner />;
@@ -57,14 +26,14 @@ function KullaniciRehberi() {
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {kullanicilar.map((kullanici) => (
+            {kullanicilar?.map((k) => (
                 <div
-                    key={kullanici.id}
-                    onClick={() => setSecili(kullanici.id)}
+                    key={k.id}
+                    onClick={() => setSecili(k.id)}
                     className={`p-4 rounded-lg shadow-md bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-600 dark:text-white hover:bg-gray-100 ${
-                        secili === kullanici.id ? "ring-2 ring-blue-500" : ""}`}>
-                    <Link to={`/kullanici/${kullanici.id}`}>
-                        <strong>{kullanici.name}</strong> - {kullanici.email}
+                        secili === k.id ? "ring-2 ring-blue-500" : ""}`}>
+                    <Link to={`/kullanici/${k.id}`}>
+                        <strong>{k.name}</strong> - {k.email}
                     </Link>
                 </div>
             ))}

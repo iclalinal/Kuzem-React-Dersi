@@ -1,19 +1,26 @@
-import {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
+import useFetch from "../hooks/useFetch";
+import Spinner from "./Spinner";
 
 type Kullanici = {id: number, name: string, email: string};
 
 function KullaniciDetay() {
     const {id} = useParams();
-    const [kullanici, setKullanici] = useState<Kullanici | null>(null);
+    const {veri : kullanici, yukleniyor, hata, yenidenDene} = useFetch<Kullanici>(`https://jsonplaceholder.typicode.com/users/${id}`);
 
-    useEffect(() => {
-        const getir = async () => {
-            const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
-            setKullanici(await res.json());
-        }
-        getir();
-    }, [id]);
+
+    if (yukleniyor) {<Spinner />;}
+
+    if (hata) {
+        return (
+            <div>
+                <button onClick={yenidenDene} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Yeniden Dene
+                </button>
+                <p className="text-red-500">{hata}</p>
+            </div>
+        );
+    }
 
     if (!kullanici) {
         return <p className="text-gray-500 dark:text-white">Kullanıcı yükleniyor...</p>;
