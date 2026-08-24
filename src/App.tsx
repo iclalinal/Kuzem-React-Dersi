@@ -1,5 +1,5 @@
 import {Routes, Route} from "react-router-dom";
-import ToDoApp from "./components/ToDoApp";
+import KullaniciRehberi from "./components/KullaniciRehberi";
 import Layout from "./components/Layout";
 
 function AnaSayfa() {
@@ -15,7 +15,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<AnaSayfa />} />
-        <Route path="todo" element={<ToDoApp />} />
+        <Route path="kullanicirehberi" element={<KullaniciRehberi />} />
         <Route path="hakkimizda" element={<h1>Hakkımızda</h1>} />
       </Route>
     </Routes>

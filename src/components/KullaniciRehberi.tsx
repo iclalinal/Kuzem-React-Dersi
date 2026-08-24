@@ -8,6 +8,7 @@ function KullaniciRehberi() {
     const [yukleniyor, setYukleniyor] = useState<boolean>(true);
     const [hata, setHata] = useState<string>("");
     const [secili, setSecili] = useState<number | null>(null);
+    const [denemeNo, setDenemeNo] = useState<number>(0);
 
     useEffect(() => {
         const getir = async () => {
@@ -17,21 +18,40 @@ function KullaniciRehberi() {
                     throw new Error("Http hatası: " + res.status);
                 }
                 setKullanicilar(await res.json());
-            } catch {
-                setHata("Kullanıcılar yüklenemedi!");
+            } catch (err) {
+                if (err instanceof TypeError) {
+                    setHata("İnternet bağlantısı yok!");
+                } else if (err instanceof Error) {
+                    setHata(err.message);
+                } else {
+                    setHata("Bilinmeyen bir hata oluştu!"); 
+                }
             } finally {
                 setYukleniyor(false);
             }
         };
         getir();
-    }, []);
+    }, [denemeNo]);
+
+    function yenidenDene() {
+        setHata("");
+        setYukleniyor(true);
+        setDenemeNo((p) => p + 1);
+    }
 
     if (yukleniyor) {
         return <p>Hazırlanıyor...</p>;
     }
 
     if (hata) {
-        return <p>{hata}</p>;
+        return (
+            <div>
+                <button onClick={yenidenDene} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Yeniden Dene
+                </button>
+                <p className="text-red-500">{hata}</p>
+            </div>
+        );
     }
 
     return (
