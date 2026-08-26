@@ -1,28 +1,21 @@
-import {Routes, Route} from "react-router-dom";
-import KullaniciRehberi from "./components/KullaniciRehberi";
-import Layout from "./components/Layout";
-import Spinner from './components/Spinner';
-import ToDoApp from './components/ToDoApp';
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import AnaSayfa from './pages/AnaSayfa';
+import GorevYoneticisi from './pages/GorevYoneticisi';
+import KullaniciRehberi from './pages/KullaniciRehberi';
+import KullaniciDetay from './pages/KullaniciDetay';
+import BulunamadiSayfasi from './pages/BulunamadiSayfasi';
 
-function AnaSayfa() {
-  return (
-    <div>
-      <h1>Ana Sayfa</h1>
-    </div>
-  );
-}
-
-function App() {
+export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<AnaSayfa />} />
-        <Route path="kullanicirehberi" element={<KullaniciRehberi />} />
-        <Route path="hakkimizda" element={<h1>Hakkımızda</h1>} />
-        <Route path ="todos" element={<ToDoApp />} />
-        <Route path="spinner" element={<Spinner />} />
+        <Route path="gorevler" element={<GorevYoneticisi />} />
+        <Route path="kullanicilar" element={<KullaniciRehberi />} />
+        <Route path="kullanicilar/:id" element={<KullaniciDetay />} />
+        <Route path="*" element={<BulunamadiSayfasi />} />
       </Route>
     </Routes>
   );
 }
-export default App;

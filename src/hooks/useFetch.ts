@@ -1,44 +1,41 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from 'react';
 
-function useFetch<T>(url: string){
-    const [veri, setVeri] = useState<T | null>(null);
-    const [yukleniyor, setYukleniyor] = useState<boolean>(true);
-    const [hata, setHata] = useState<string>("");
-    const [denemeNo, setDenemeNo] = useState<number>(0);
+interface FetchDurumu<T> {
+  veri: T | null;
+  yukleniyor: boolean;
+  hata: string | null;
+}
 
-    useEffect(()=> {
-        async function veriGetir(){
-            setYukleniyor(true);
-            setHata("");
-            try {
-                const yanit = await fetch(url);
-                if (!yanit.ok) {
-                    throw new Error("Http hatası: " + yanit.status);
-                }
-                const sonuc = await yanit.json();
-                setVeri(sonuc);
-            } catch (error) {
-                if (error instanceof TypeError) {
-                    setHata("İnternet bağlantısı yok!");
-                } else if (error instanceof Error) {
-                    setHata(error.message);
-                } else {
-                    setHata("Bilinmeyen bir hata oluştu!");
-                }
-            } finally {
-                setYukleniyor(false);
-            }
+export function useFetch<T>(url: string): FetchDurumu<T> {
+  const [veri, setVeri] = useState<T | null>(null);
+  const [yukleniyor, setYukleniyor] = useState(true);
+  const [hata, setHata] = useState<string | null>(null);
+
+  useEffect(() => {
+    let iptalEdildi = false;
+
+    async function veriGetir() {
+      setYukleniyor(true);
+      setHata(null);
+      try {
+        const res = await fetch(url);
+        if (!res.ok) {
+          throw new Error(`Sunucu hatası: ${res.status}`);
         }
-        veriGetir();
-    }, [url, denemeNo]);
-
-    function yenidenDene() {
-        setHata("");
-        setYukleniyor(true);
-        setDenemeNo((p) => p + 1);
+        const json = await res.json();
+        if (!iptalEdildi) setVeri(json);
+      } catch (err) {
+        if (!iptalEdildi) {
+          setHata(err instanceof Error ? err.message : 'Bilinmeyen hata');
+        }
+      } finally {
+        if (!iptalEdildi) setYukleniyor(false);
+      }
     }
 
-    return { veri, yukleniyor, hata, yenidenDene };
-}
-export default useFetch;
+    veriGetir();
+    return () => { iptalEdildi = true; };
+  }, [url]);
 
+  return { veri, yukleniyor, hata };
+}

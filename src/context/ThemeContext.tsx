@@ -1,39 +1,35 @@
-import {createContext, useEffect, useContext} from "react";
-import type {ReactNode} from "react";
-import useLocalStorage from "../hooks/useLocalStorage";
+import { createContext, useContext, useEffect } from 'react';
+import { useLocalStorage } from '../hooks/useLocalStorage';
+import type { Tema } from '../types';
+import type { ReactNode } from 'react';
 
-type Theme = "light" | "dark";
-
-interface ThemeContextType {
-    theme: Theme;
-    toggleTheme: () => void;
+interface ThemeContextTipi {
+  tema: Tema;
+  temaDegistir: () => void;
 }
 
-export const ThemeContext =
-    createContext<ThemeContextType | undefined>(undefined);
+const ThemeContext = createContext<ThemeContextTipi | undefined>(undefined);
 
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  const [tema, setTema] = useLocalStorage<Tema>('tema', 'light');
 
-export function ThemeProvider({children}: {children: ReactNode}){
-    const [theme, setTheme] = useLocalStorage<Theme>("theme", "light");
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', tema === 'dark');
+  }, [tema]);
 
-    useEffect(()=>{
-        document.documentElement.classList.toggle("dark", theme === "dark");
-    }, [theme]);
+  function temaDegistir() {
+    setTema(tema === 'light' ? 'dark' : 'light');
+  }
 
-    function toggleTheme(){
-        setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-    } 
+  return (
+    <ThemeContext.Provider value={{ tema, temaDegistir }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
 
-    return(
-        <ThemeContext.Provider value={{theme, toggleTheme}}>
-            {children}
-        </ThemeContext.Provider>
-        )
-    }
-
-export function useTheme(){
-    const ctx = useContext(ThemeContext)
-    if(!ctx){
-        throw new Error("useTheme, ThemeProvider içine kullanılmalı")
-} return ctx
+export function useTheme() {
+  const context = useContext(ThemeContext);
+  if (!context) throw new Error('useTheme, ThemeProvider içinde kullanılmalı');
+  return context;
 }

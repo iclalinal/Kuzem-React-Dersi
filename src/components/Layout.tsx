@@ -1,31 +1,30 @@
-import {Outlet, NavLink} from "react-router-dom";
-import { useTheme } from "../context/ThemeContext";
+import { NavLink, Outlet } from 'react-router-dom';
+import { useTheme } from '../context/ThemeContext';
 
-function Layout() {
-    const { theme, toggleTheme } = useTheme();
+export default function Layout() {
+  const { tema, temaDegistir } = useTheme();
 
-    return(
-        <>
-            <nav className = "flex items-center justify-between px-6 py-4 bg-white shadow-md">
-                <span className = "text-lg font-bold">KUZEM</span>
-                <NavLink to="/"
-                className={({ isActive }) => `hover:text-primary ${isActive ? 'text-secondary font-bold' : 'text-gray-700'}`}>
-                    Ana Sayfa
-                </NavLink>
-                <NavLink to="/hakkimizda"
-                className={({ isActive }) => `hover:text-primary ${isActive ? 'text-secondary font-bold' : 'text-gray-700'}`}>
-                    Hakkımızda
-                </NavLink>
-                <NavLink to="/kullanici"
-                className={({ isActive }) => `hover:text-primary ${isActive ? 'text-secondary font-bold' : 'text-gray-700'}`}>
-                    Kullanıcılar
-                </NavLink>
-                <button onClick={toggleTheme}
-                className="px-3 py-1 rounded-md border text-sm dark:text-white dark:border-gray-600 dark:bg-black">
-                {theme == "light" ? "Koyu": "Açık"}
-                </button>
-            </nav>
-            <Outlet />
-        </>
-    )
-} export default Layout;
+  const linkClass = ({ isActive }: { isActive: boolean }) =>
+    `px-3 py-2 rounded ${isActive ? 'bg-marka text-white' : 'text-gray-700 dark:text-gray-200'}`;
+
+  return (
+    <div className="min-h-screen bg-white dark:bg-gray-900">
+      <nav className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex gap-2">
+          <NavLink to="/" className={linkClass} end>Ana Sayfa</NavLink>
+          <NavLink to="/gorevler" className={linkClass}>Görevler</NavLink>
+          <NavLink to="/kullanicilar" className={linkClass}>Kullanıcılar</NavLink>
+        </div>
+        <button
+          onClick={temaDegistir}
+          className="px-3 py-1 rounded border border-gray-300 dark:border-gray-600 dark:text-white"
+        >
+          {tema === 'light' ? '🌙 Karanlık' : '☀️ Aydınlık'}
+        </button>
+      </nav>
+      <main className="p-6">
+        <Outlet />
+      </main>
+    </div>
+  );
+}
