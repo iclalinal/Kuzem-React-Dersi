@@ -1,6 +1,7 @@
 import {Routes, Route} from "react-router-dom";
 import KullaniciRehberi from "./components/KullaniciRehberi";
 import Layout from "./components/Layout";
+import Spinner from './components/Spinner';
 
 function AnaSayfa() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route index element={<AnaSayfa />} />
         <Route path="kullanicirehberi" element={<KullaniciRehberi />} />
         <Route path="hakkimizda" element={<h1>Hakkımızda</h1>} />
+        <Route path="spinner" element={<Spinner />} />
       </Route>
     </Routes>
   );
